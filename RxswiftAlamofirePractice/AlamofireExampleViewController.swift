@@ -25,12 +25,9 @@ class AlamofireExampleViewController: UIViewController,UITableViewDelegate,UITab
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
-
-        
     }
     override func viewDidAppear(_ animated: Bool) {
         let statusBar:CGFloat = view.window?.windowScene?.statusBarManager?.statusBarFrame.height ?? 0
-        print(statusBar)
         let navigatonBar:CGFloat = (self.navigationController?.navigationBar.frame.size.height)!
         let mainView = UIView(frame: CGRect(x: 0, y: statusBar + navigatonBar, width: view.frame.width, height: view.frame.height / 4))
         self.view.addSubview(mainView)

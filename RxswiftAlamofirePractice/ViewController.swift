@@ -17,25 +17,35 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
-        alamofireButton.backgroundColor = .darkGray
-        alamofireButton.setTitle("Alamofire", for:  .normal)
-        alamofireButton.rx.tap.subscribe({[unowned self] _ in
-            print("タップされたよ")
-            let storyBoard = UIStoryboard(name: "Main", bundle: nil)
-            let alamofireExampleViewController = storyBoard.instantiateViewController(identifier: "AlamofireExampleViewController")
-            self.navigationController?.pushViewController(alamofireExampleViewController, animated: true)
-        }).disposed(by: disposeBug)
-        rxSwiftButton.setTitle("RxSwift", for: .normal)
-        rxSwiftButton.backgroundColor = .darkGray
-        rxSwiftButton.rx.tap.subscribe {[unowned self] _ in
-            let storyBoard = UIStoryboard(name: "Main", bundle: nil)
-            let rxSwiftExampleController = storyBoard.instantiateViewController(identifier: "RxSwiftExampleViewController")
-            self.navigationController?.pushViewController(rxSwiftExampleController, animated: true)
+        do{
+            alamofireButton.backgroundColor = .darkGray
+            alamofireButton.setTitle("Alamofire", for:  .normal)
+            alamofireButton.rx.tap.subscribe({[unowned self] _ in
+                let storyBoard = UIStoryboard(name: "Main", bundle: nil)
+                let alamofireExampleViewController = storyBoard.instantiateViewController(identifier: "AlamofireExampleViewController")
+                self.navigationController?.pushViewController(alamofireExampleViewController, animated: true)
+            }).disposed(by: disposeBug)
+            self.view.addSubview(rxSwiftButton)
         }
-        self.view.addSubview(rxSwiftButton)
-        self.view.addSubview(alamofireButton)
-        
-        
+        do{
+            rxSwiftButton.setTitle("RxSwift", for: .normal)
+            rxSwiftButton.backgroundColor = .darkGray
+            rxSwiftButton.rx.tap.subscribe {[unowned self] _ in
+                let storyBoard = UIStoryboard(name: "Main", bundle: nil)
+                let rxSwiftExampleController = storyBoard.instantiateViewController(identifier: "RxSwiftExampleViewController")
+                self.navigationController?.pushViewController(rxSwiftExampleController, animated: true)
+            }
+            self.view.addSubview(alamofireButton)
+        }
+//        ナビゲーションを弄るあれこれ
+        do{
+            self.navigationItem.title = "Alamofire RxSwift"
+            self.navigationController?.navigationBar.barStyle = .black
+            self.navigationController?.navigationBar.tintColor = .orange
+//            self.navigationController?.navigationBar.isTranslucent = true
+//            self.navigationController?.navigationBar.barTintColor = .blue
+        }
+
     }
     override func viewDidLayoutSubviews() {
 //        AutoLayoutを使うと、AutoLayout以外で設定していたフレーム（サイズも）が効かなくなるので、どっちかに倒した方が良い。
